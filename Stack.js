@@ -29,7 +29,7 @@ class Stack {
   }
 
   print() {
-    console.log(this.store.join(''));
+    console.log(this.store.reverse().join('\n'));
   }
 }
 
@@ -42,10 +42,23 @@ stack.push(5);
 console.log(stack.peek()); //=> 5
 const popped = stack.pop();
 console.log(popped); //=> 5
-console.log(stack.peek()); //=> 4
+console.log(stack.length()); //=> 4
 stack.push(6);
 console.log(stack.peek()); //=> 6
 stack.clear();
 console.log(stack.peek()); //=> undefined
-stack.push(7);
-console.log(stack.length()); //=> 1
+console.log(stack.length()); //=> 0
+
+stack.push(1);
+stack.push(2);
+stack.push(3);
+stack.push(4);
+stack.push(5);
+stack.print();
+/*
+5
+4
+3
+2
+1
+*/
