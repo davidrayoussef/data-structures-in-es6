@@ -207,7 +207,7 @@ function convertSortedArray(nums, start = 0, end = nums.length - 1) {
   if (start > end) return null;
 
   const mid = Math.round((start + end) / 2);
-  let node = new TreeNode(nums[mid]);
+  let node = new Node(nums[mid]);
 
   node.left = convertSortedArray(nums, start, mid - 1);
   node.right = convertSortedArray(nums, mid + 1, end);
