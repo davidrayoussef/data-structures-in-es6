@@ -121,7 +121,41 @@ class LinkedList {
 
     return elements[Math.floor(Math.random() * elements.length)];
   }
+}
 
+function length(head) {
+  let length = 0;
+  let current = head;
+
+  while (current) {
+    length++;
+    current = current.next;
+  }
+
+  return length;
+}
+
+function count(head, data) {
+  let count = 0;
+  let current = head;
+
+  while (current) {
+    if (current.data === data) count++;
+    current = current.next;
+  }
+
+  return count;
+}
+
+function getNthNodeVal(node, index) {
+  let current = node;
+
+  while (current && index > 0) {
+    current = current.next;
+    index--;
+  }
+
+  return current.data;
 }
 
 function reversePrint(node) {
@@ -276,11 +310,17 @@ function partitionList(head, x) {
 }
 
 let cities = new LinkedList();
-cities.append("Jersey City");
-cities.append("NYC");
-cities.append("Miami");
-cities.append("LA");
+cities.append('Jersey City');
+cities.append('NYC');
+cities.append('Miami');
+cities.append('LA');
 reversePrint(cities.head);
+/*
+LA
+Miami
+NYC
+Jersey City
+*/
 
 let numbers = new LinkedList();
 numbers.append(1);
@@ -288,13 +328,15 @@ numbers.append(1);
 numbers.append(2);
 numbers.append(3);
 numbers.append(3);
-removeDuplicates(numbers.head);
-// numbers.insert(numbers.head, 0, 7);
+console.log(JSON.stringify(removeDuplicates(numbers.head))); //=> "{"data":1,"next":{"data":2,"next":{"data":3,"next":null}}}"
 
 let numbers2 = new LinkedList();
 numbers2.append(1);
 numbers2.append(2);
-isPalindrome(numbers2.head);
+numbers2.append(3);
+numbers2.append(2);
+numbers2.append(1);
+console.log(isPalindrome(numbers2.head)); //=> true
 
 let numbers3 = new LinkedList();
 numbers3.append(1);
@@ -302,13 +344,10 @@ numbers3.append(2);
 numbers3.append(3);
 numbers3.append(4);
 numbers3.append(5);
-oddEvenList(numbers3.head);
+console.log(JSON.stringify(oddEvenList(numbers3.head))); //=> "{"data":1,"next":{"data":3,"next":{"data":5,"next":{"data":2,"next":{"data":4,"next":null}}}}}"
 
 let numbers4 = new LinkedList();
 numbers4.append(1);
-numbers4.append(4);
+numbers4.append(2);
 numbers4.append(3);
-numbers4.append(2);
-numbers4.append(5);
-numbers4.append(2);
-partitionList(numbers4.head, 3);
+console.log(getNthNodeVal(numbers4.head, 1)); //=> 2
