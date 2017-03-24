@@ -215,6 +215,56 @@ function convertSortedArray(nums, start = 0, end = nums.length - 1) {
   return node;
 }
 
+function largestValueInEachRow(root) {
+  if (!root) return []
+
+  let result = [];
+  let separator = '';
+  let queue = [separator, root];
+  let row = -1;
+
+  while (queue.length > 1) {
+    let node = queue[0];
+
+    if ( node === JSON.stringify(separator) ) {
+      row++;
+      queue.push(separator);
+      queue.shift();
+      node = queue[0];
+      result.push(node.val);
+    }
+    else {
+      result[row] = Math.max(node.val, result[row]);
+    }
+
+    if (node.left) {
+      queue.push(node.left);
+    }
+
+    if (node.right) {
+      queue.push(node.right);
+    }
+
+    queue.shift();
+  }
+
+  return result;
+}
+
+function sumTreeValues(root, sum = 0) {
+  const traverse = (node) => {
+    if (node) {
+      sum += node.val;
+      traverse(node.left);
+      traverse(node.right);
+    }
+  }
+
+  traverse(root);
+
+  return sum;
+}
+
 let nums = new BinarySearchTree();
 nums.insert(7);
 nums.insert(3);
@@ -244,3 +294,6 @@ console.log(maxDepth(nums.root)); //=> 4
 const n1 = new Node(1);
 const n2 = new Node(4);
 lowestCommonAncestor(nums.root, n1, n2); //=> 3
+largestValueInEachRow(nums.root);
+const simpleNode = {val:10, left: {val: 1, left: null, right: null}, right: {val: 2, left: null, right: null}};
+sumTreeValues(simpleNode); //=> 13
