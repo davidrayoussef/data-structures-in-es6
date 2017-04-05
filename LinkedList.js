@@ -75,12 +75,13 @@ class LinkedList {
 
   deleteElements(head, data) {
     if (!head) return head;
-    while (head && head.val === val) head = head.next;
+
+    while (head && head.data === data) head = head.next;
 
     let current = head;
 
     while (current && current.next) {
-      if (current.next.val === val) {
+      if (current.next.data === data) {
         current.next = current.next.next;
       }
       else current = current.next;
@@ -195,6 +196,29 @@ function hasCycle(head) {
   return false;
 }
 
+function cycleSize(head) {
+  let slow = head;
+  let fast = head;
+
+  while (fast && fast.next && fast.next.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+
+    if (slow === fast) {
+      let size = 0;
+
+      while (true) {
+        slow = slow.next;
+        size++;
+
+        if (slow === fast) {
+          return size;
+        }
+      }
+    }
+  }
+}
+
 function mergeSortedLists(l1, l2) {
   let merged = new Node(0);
   let copy = merged;
@@ -307,6 +331,66 @@ function partitionList(head, x) {
   current1.next = head2.next;
 
   return head1.next;
+}
+
+function listToArray(head) {
+  let arr = [];
+  let current = head;
+
+  while (current) {
+    arr.push(current.data);
+    current = current.next;
+  }
+
+  return arr;
+}
+
+function getNthNode(node, index) {
+  if (!node || index < 0) throw new Error();
+
+  let current = node;
+
+  while (current && index > 0) {
+    current = current.next;
+    index--;
+  }
+
+  if (!current) throw new Error();
+
+  return current;
+}
+
+function sortedInsert(head, data) {
+  let newNode = new Node(data);
+
+  if (!head) return newNode;
+
+  let current = head;
+  let temp;
+
+  while (current) {
+    if (current.data > data) {
+      newNode.next = head;
+
+      return newNode;
+    }
+
+    else if (current.data < data && !current.next) {
+      current.next = newNode;
+      break;
+    }
+
+    else if (current.data < data && current.next.data > data) {
+      temp = current.next;
+      newNode.next = temp;
+      current.next = newNode;
+      break;
+    }
+
+    current = current.next;
+  }
+
+  return head;
 }
 
 let cities = new LinkedList();
