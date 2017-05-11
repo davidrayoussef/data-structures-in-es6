@@ -415,6 +415,19 @@ function allMatch(head, fn) {
   return true;
 }
 
+function map(head, fn) {
+  let newNode = new Node(0);
+  let copy = newNode;
+
+  while (head) {
+    newNode.next = new Node( fn(head.data) );
+    head = head.next;
+    newNode = newNode.next;
+  }
+
+  return copy.next;
+}
+
 function filter(head, fn) {
   let current = head;
   let newNode = new Node(0);
