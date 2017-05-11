@@ -393,6 +393,45 @@ function sortedInsert(head, data) {
   return head;
 }
 
+function anyMatch(head, fn) {
+  let current = head;
+
+  while (current) {
+    if ( fn(current.data) ) return true;
+    current = current.next;
+  }
+
+  return false;
+}
+
+function allMatch(head, fn) {
+  let current = head;
+
+  while (current) {
+    if ( !fn(current.data ) ) return false;
+    current = current.next;
+  }
+
+  return true;
+}
+
+function filter(head, fn) {
+  let current = head;
+  let newNode = new Node(0);
+  let copy = newNode;
+
+  while (current) {
+    if ( fn(current.data) ) {
+      newNode.next = new Node(current.data);
+      newNode = newNode.next;
+    }
+
+    current = current.next;
+  }
+
+  return copy.next;
+}
+
 let cities = new LinkedList();
 cities.append('Jersey City');
 cities.append('NYC');
