@@ -432,6 +432,17 @@ function filter(head, fn) {
   return copy.next;
 }
 
+function reduce(head, fn, init) {
+  let acc = init;
+
+  while (head) {
+    acc = fn(acc, head.data);
+    head = head.next;
+  }
+
+  return acc;
+}
+
 let cities = new LinkedList();
 cities.append('Jersey City');
 cities.append('NYC');
