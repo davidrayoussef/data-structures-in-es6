@@ -1,0 +1,35 @@
+{
+  "name": "data-structures-in-es6",
+  "version": "1.0.0",
+  "description": "Data Structures implemented in ES6+.",
+  "scripts": {
+    "test": "mocha ./*.test.js --compilers js:babel-register",
+    "watch:test": "npm t -- -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidrayoussef/data-structures-in-es6.git"
+  },
+  "keywords": [
+    "data-structures",
+    "es6",
+    "es2015"
+  ],
+  "author": "David Ra Youssef <davidradeveloper@gmail.com> (http://davidra.co/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidrayoussef/data-structures-in-es6/issues"
+  },
+  "homepage": "https://github.com/davidrayoussef/data-structures-in-es6#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "chai": "^4.1.0",
+    "mocha": "^3.4.2"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  }
+}
