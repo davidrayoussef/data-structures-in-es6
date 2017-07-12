@@ -17,30 +17,34 @@ class List {
   }
 
   push(...items) {
-    items.map(item => {
+    for (let item of items) {
       this[this.length] = item;
       this.length++;
-    });
+    }
 
     return this.length;
   }
 
   pop() {
-    const item = this[this.length - 1];
+    const itemToReturn = this[this.length - 1];
     delete this[this.length - 1];
     this.length--;
 
-    return item;
+    return itemToReturn;
   }
 
   shift() {
-    let item = this[0];
+    const itemToReturn = this[0];
     delete this[0];
-    Object.keys(this).map((key,i) => this[i] = this[key]);
+
+    for (let i = 0; i < this.length; i++) {
+      this[i] = this[i + 1];
+    }
+
     delete this[this.length - 1];
     this.length--;
 
-    return item;
+    return itemToReturn;
   }
 
   unshift(...items) {
@@ -50,10 +54,10 @@ class List {
       this[i] = this[i - itemLength];
     }
 
-    items.map((item,i) => {
-      this[i] = item;
+    for (let i = 0; i < items.length; i++) {
+      this[i] = items[i];
       this.length++;
-    });
+    }
 
     return this.length;
   }
