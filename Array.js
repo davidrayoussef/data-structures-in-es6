@@ -67,10 +67,4 @@ class List {
   }
 }
 
-let list = new List(3,4,5,6);
-list.push(7,8,9,10);
-list.unshift(0,1,2);
-list.pop(); //=> 10
-list.shift(); //=> 0
-list.length; //=> 9
-list.filter(v => v > 5); //=> [6, 7, 8, 9]
+export default List;
