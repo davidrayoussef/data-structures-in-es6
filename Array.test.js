@@ -181,3 +181,52 @@ describe('unshift', () => {
   });
 
 });
+
+describe('filter', () => {
+
+  it('should return an array of evens if passed a predicate function for evens', () => {
+
+    let list = new List(1,2,3,4,5,6,7,8,9);
+
+    const isEven = (n) => n % 2 === 0;
+    const evens = list.filter(isEven);
+
+    const actual = evens.join('');
+    const expected = '2468';
+
+    assert.equal(actual, expected);
+
+  });
+
+  it('should return numbers from list of mixed types if passed predicate function for numbers', () => {
+
+    let list = new List(5, null, undefined, 2.5, {}, [], 'string', -3);
+
+    const isNumber = (n) => typeof n === 'number';
+    const nums = list.filter(isNumber);
+
+    const areAllNumbers = nums.every(v => typeof v === 'number');
+
+    expect(areAllNumbers).to.be.true;
+
+  });
+
+  it('should filter list of objects based on passed predicate function', () => {
+
+    let people = new List(
+      { name: 'Pete', age: 19 },
+      { name: 'Emily', age: 25 },
+      { name: 'Lou', age: 30 },
+      { name: 'Amy', age: 18 }
+    );
+
+    const isOver20 = (obj) => obj.age > 20;
+
+    const actual = JSON.stringify( people.filter(isOver20) );
+    const expected = '[{"name":"Emily","age":25},{"name":"Lou","age":30}]';
+
+    assert.equal(actual, expected);
+
+  });
+
+});
