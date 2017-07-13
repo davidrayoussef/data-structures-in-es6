@@ -63,7 +63,18 @@ class List {
   }
 
   filter(fn) {
-    return Object.keys(this).map(key => this[key]).filter(fn);
+    let result = [];
+    const arr = Object(this);
+
+    for (let index = 0; index < this.length; index++) {
+      let val = this[index];
+
+      if ( fn(val, index, arr) ) {
+        result.push(val);
+      }
+    }
+
+    return result;
   }
 }
 
