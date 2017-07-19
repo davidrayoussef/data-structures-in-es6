@@ -62,6 +62,41 @@ class List {
     return this.length;
   }
 
+  splice(startIndex, deleteCount = 0, ...itemsToAdd) {
+    const itemLength = this.length - 1;
+    let itemsToRemove = [];
+
+    if (deleteCount > this.length) {
+      deleteCount = this.length - startIndex;
+    }
+
+    for (let i = startIndex; i < startIndex + deleteCount; i++) {
+      itemsToRemove.push( this[i] );
+    }
+
+    for (let i = 0; i < deleteCount; i++) {
+      for (let j = startIndex; j < itemLength; j++) {
+        this[j] = this[j + 1];
+        delete this[j + 1];
+      }
+    }
+
+    this.length -= deleteCount;
+
+    if (itemsToAdd.length > 0) {
+      const itemLength = this.length - 1;
+      let rest = [];
+
+      for (let j = startIndex; j <= itemLength; j++) {
+        rest.unshift(this.pop());
+      }
+
+      this.push( ...itemsToAdd, ...rest );
+    }
+
+    return itemsToRemove;
+  }
+
   filter(fn) {
     let result = [];
     const arr = Object(this);
