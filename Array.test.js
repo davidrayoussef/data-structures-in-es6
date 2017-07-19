@@ -182,6 +182,60 @@ describe('unshift', () => {
 
 });
 
+describe('splice', () => {
+
+  it('should correctly remove items', () => {
+
+    let list = new List(1,2,3,4);
+
+    list.splice(1, 2);
+
+    const actual = JSON.stringify( list );
+    const expected = '{"0":1,"1":4}';
+
+    assert.equal(actual, expected);
+
+  });
+
+  it('should return removed items', () => {
+
+    let list = new List(1,2,3,4);
+
+    const actual = JSON.stringify( list.splice(1, 2) );
+    const expected = '[2,3]';
+
+    assert.equal(actual, expected);
+
+  });
+
+  it('should add items in correct positions', () => {
+
+    let list = new List('apple', 'pear', 'banana');
+
+    list.splice(2, 0, 'orange', 'melon');
+
+    const actual = JSON.stringify( list );
+    const expected = '{"0":"apple","1":"pear","2":"orange","3":"melon","4":"banana"}';
+
+    assert.equal(actual, expected);
+
+  });
+
+  it('should return correct length after removing items', () => {
+
+    let list = new List(1,2,3,4);
+
+    list.splice(0, 3);
+
+    const actual = list.length;
+    const expected = 1;
+
+    assert.equal(actual, expected);
+
+  });
+
+});
+
 describe('filter', () => {
 
   it('should return an array of evens if passed a predicate function for evens', () => {
