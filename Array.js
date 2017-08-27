@@ -3,14 +3,37 @@
 //
 
 class List {
-  constructor(...nums) {
-    this.length = nums.length;
+  constructor(...args) {
+    if (!args) return this;
 
-    nums.map((num,i) => this[i] = num);
+    else if ( Array.isArray(args[0]) ) {
+      const arr = args[0];
+
+      for (let i = 0; i < arr.length; i++) {
+        this[i] = arr[i];
+      }
+
+      this.length = arr.length;
+    }
+
+    else if (args.length === 1) {
+      this.length = args[0];
+
+      for (let i = 0; i < this.length; i++) {
+        this[i] = undefined;
+      }
+    }
+
+    else {
+      for (let i = 0; i < args.length; i++) {
+        this[i] = args[i];
+      }
+
+      this.length = args.length;
+    }
 
     Object.defineProperty(this, 'length', {
-      enumerable: false,
-      configurable: false
+      enumerable: false
     });
 
     return this;
