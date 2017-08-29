@@ -1,6 +1,43 @@
 import List from './Array';
 import { expect, assert } from 'chai';
 
+describe('constructor', () => {
+
+  it('should return an instance of a List', () => {
+
+    expect(new List()).to.be.an.instanceof(List);
+
+  });
+
+  it('should return a new List of length n when passed a single integer n', () => {
+
+    const actual = new List(3).length;
+    const expected = 3;
+
+    assert.equal(actual, expected);
+
+  });
+
+  it('should return a new List Object of n items when passed n arguments', () => {
+
+    const actual = JSON.stringify(new List(1,2,3,4));
+    const expected = '{"0":1,"1":2,"2":3,"3":4}';
+
+    assert.equal(actual, expected);
+
+  });
+
+  it('should return a new List Object of n items when passed an array of n items', () => {
+
+    const actual = JSON.stringify(new List([1,2,3,4,5]));
+    const expected = '{"0":1,"1":2,"2":3,"3":4,"4":5}';
+
+    assert.equal(actual, expected);
+
+  });
+
+});
+
 describe('length', () => {
 
   it('should return correct length of new List', () => {
