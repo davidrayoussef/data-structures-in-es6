@@ -18,29 +18,29 @@ class BinarySearchTree {
 
     if (!this.root) {
       this.root = newNode;
+      return;
     }
-    else {
-      let current = this.root;
-      let parent;
 
-      while (true) {
-        parent = current;
+    let current = this.root;
+    let parent;
 
-        if (val < current.val) {
-          current = current.left;
+    while (true) {
+      parent = current;
 
-          if (!current) {
-            parent.left = newNode;
-            break;
-          }
+      if (val < current.val) {
+        current = current.left;
+
+        if (!current) {
+          parent.left = newNode;
+          break;
         }
-        else {
-          current = current.right;
+      }
+      else {
+        current = current.right;
 
-          if (!current) {
-            parent.right = newNode;
-            break;
-          }
+        if (!current) {
+          parent.right = newNode;
+          break;
         }
       }
     }
