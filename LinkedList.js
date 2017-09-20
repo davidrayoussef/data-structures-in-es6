@@ -9,7 +9,7 @@ function Node(data, next = null) {
 
 class LinkedList {
   constructor() {
-    this.head = null
+    this.head = null;
   }
 
   find(item) {
@@ -20,6 +20,11 @@ class LinkedList {
     }
 
     return current;
+  }
+
+  get(item) {
+    const node = this.find(item);
+    return node ? node.data : null;
   }
 
   append(data) {
