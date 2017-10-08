@@ -12,21 +12,6 @@ class LinkedList {
     this.head = null;
   }
 
-  find(item) {
-    let current = this.head;
-
-    while (current.data !== item) {
-      current = current.next;
-    }
-
-    return current;
-  }
-
-  get(item) {
-    const node = this.find(item);
-    return node ? node.data : null;
-  }
-
   append(data) {
     const newNode = new Node(data);
 
@@ -50,27 +35,28 @@ class LinkedList {
     this.head = newHead;
   }
 
-  insert(head, position, data) {
-    const newNode = new Node(data);
+  insert(position, data) {
+    let newNode = new Node(data);
+    let head = this.head;
 
     if (!head) {
-      head = newNode;
-      return head;
+      this.head = newNode;
+      return this.head;
     }
     else if (position === 0) {
       newNode.next = head;
-      head = newNode;
-      return head;
+      this.head = newNode;
+      return this.head;
     }
 
     let distanceFromHead = 1;
-    let current = head;
+    let current = this.head;
 
     while (current) {
       if (distanceFromHead === position) {
         newNode.next = current.next;
         current.next = newNode;
-        return head;
+        return current;
       }
 
       current = current.next;
@@ -93,6 +79,21 @@ class LinkedList {
     }
 
     return head;
+  }
+
+  find(item) {
+    let current = this.head;
+
+    while (current.data !== item) {
+      current = current.next;
+    }
+
+    return current;
+  }
+
+  get(item) {
+    const node = this.find(item);
+    return node ? node.data : null;
   }
 
   print() {
@@ -461,45 +462,6 @@ function reduce(head, fn, init) {
   return acc;
 }
 
-let cities = new LinkedList();
-cities.append('Jersey City');
-cities.append('NYC');
-cities.append('Miami');
-cities.append('LA');
-reversePrint(cities.head);
-/*
-LA
-Miami
-NYC
-Jersey City
-*/
+export default LinkedList;
 
-let numbers = new LinkedList();
-numbers.append(1);
-numbers.append(1);
-numbers.append(2);
-numbers.append(3);
-numbers.append(3);
-console.log(JSON.stringify(removeDuplicates(numbers.head))); //=> "{"data":1,"next":{"data":2,"next":{"data":3,"next":null}}}"
-
-let numbers2 = new LinkedList();
-numbers2.append(1);
-numbers2.append(2);
-numbers2.append(3);
-numbers2.append(2);
-numbers2.append(1);
-console.log(isPalindrome(numbers2.head)); //=> true
-
-let numbers3 = new LinkedList();
-numbers3.append(1);
-numbers3.append(2);
-numbers3.append(3);
-numbers3.append(4);
-numbers3.append(5);
-console.log(JSON.stringify(oddEvenList(numbers3.head))); //=> "{"data":1,"next":{"data":3,"next":{"data":5,"next":{"data":2,"next":{"data":4,"next":null}}}}}"
-
-let numbers4 = new LinkedList();
-numbers4.append(1);
-numbers4.append(2);
-numbers4.append(3);
-console.log(getNthNodeVal(numbers4.head, 1)); //=> 2
+export { Node };
