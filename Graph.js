@@ -35,22 +35,13 @@ class Graph {
     }
   }
 
+  find(data) {
+    return this.nodes[data];
+  }
+
   toString() {
     console.log(JSON.stringify(this.nodes, null, 2));
   }
 }
 
-
-let friends = new Graph();
-friends.addNode('David');
-friends.addNode('Justin');
-friends.addNode('Gina');
-friends.addNode('Tina');
-friends.addEdge('David', 'Justin');
-friends.addEdge('David', 'Gina');
-friends.addEdge('Tina', 'Justin');
-friends.toString();
-friends.removeEdge('David', 'Justin');
-friends.toString();
-friends.removeNode('Gina');
-friends.toString();
+export default Graph;
