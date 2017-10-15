@@ -265,6 +265,32 @@ function sumTreeValues(root, sum = 0) {
   return sum;
 }
 
+function serialize(root, str = '') {
+  if (!root) return str + '.' + '-';
+
+  str += root.val + '-';
+
+  str = serialize(root.left, str);
+  str = serialize(root.right, str);
+  
+  return str;
+}
+
+function deserialize(str, arr = str.split('-'), node = new Node(0)) {
+  if (arr[0] === '.') {
+    arr.shift();
+    return null;
+  }
+  else if (arr.length) {
+    node.val = +arr.shift();
+  }
+
+  node.left = deserialize(str, arr, new Node(null));
+  node.right = deserialize(str, arr, new Node(null));
+
+  return node;
+}
+
 let nums = new BinarySearchTree();
 nums.insert(7);
 nums.insert(3);
