@@ -64,12 +64,16 @@ class LinkedList {
     }
   }
 
-  deleteElements(head, data) {
-    if (!head) return head;
+  deleteElements(data) {
+    if (!this.head) return -1;
 
-    while (head && head.data === data) head = head.next;
+    let current = this.head;
 
-    let current = head;
+    // remove from head
+    while (current && current.data === data) {
+      current = current.next;
+      this.head = current;
+    }
 
     while (current && current.next) {
       if (current.next.data === data) {
@@ -78,7 +82,7 @@ class LinkedList {
       else current = current.next;
     }
 
-    return head;
+    return this.head;
   }
 
   find(item) {
@@ -154,8 +158,8 @@ function count(head, data) {
   return count;
 }
 
-function getNthNodeVal(node, index) {
-  let current = node;
+function getNthNodeVal(head, index) {
+  let current = head;
 
   while (current && index > 0) {
     current = current.next;
@@ -163,6 +167,25 @@ function getNthNodeVal(node, index) {
   }
 
   return current.data;
+}
+
+function getNthToLast(head, index) {
+  let node1 = head;
+  let node2 = head;
+
+  for (let i = 0; i < index - 1; i++) {
+    if (node2 === null) return null;
+    node2 = node2.next;
+  }
+
+  if (node2 === null) return null;
+
+  while (node2.next) {
+    node1 = node1.next;
+    node2 = node2.next;
+  }
+
+  return node1;
 }
 
 function reversePrint(node) {
