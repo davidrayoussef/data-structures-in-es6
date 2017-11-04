@@ -108,4 +108,66 @@ describe('Graph', () => {
 
   });
 
+  describe('traverseBFS', () => {
+
+    it('should traverse sideways through the graph, visiting neighbor nodes first', () => {
+
+      let tree = new Graph();
+      tree.addNode('grandparent');
+      tree.addNode('parent1');
+      tree.addNode('parent2');
+      tree.addNode('child1');
+      tree.addNode('child2');
+      tree.addNode('child3');
+      tree.addNode('child4');
+      tree.addEdge('grandparent', 'parent1');
+      tree.addEdge('grandparent', 'parent2');
+      tree.addEdge('parent1', 'child1');
+      tree.addEdge('parent1', 'child2');
+      tree.addEdge('parent2', 'child3');
+      tree.addEdge('parent2', 'child4');
+
+      let nodes = [];
+      tree.traverseBFS('grandparent', (node) => (nodes.push(node)));
+
+      const actual = nodes.join(' -> ');
+      const expected = 'grandparent -> parent1 -> parent2 -> child1 -> child2 -> child3 -> child4';
+
+      assert.equal(actual, expected);
+
+    });
+
+  });
+
+  describe('traverseDFS', () => {
+
+    it('should traverse recursively down a graph, visiting all descendants first', () => {
+
+      let tree = new Graph();
+      tree.addNode('grandparent');
+      tree.addNode('parent1');
+      tree.addNode('parent2');
+      tree.addNode('child1');
+      tree.addNode('child2');
+      tree.addNode('child3');
+      tree.addNode('child4');
+      tree.addEdge('grandparent', 'parent1');
+      tree.addEdge('grandparent', 'parent2');
+      tree.addEdge('parent1', 'child1');
+      tree.addEdge('parent1', 'child2');
+      tree.addEdge('parent2', 'child3');
+      tree.addEdge('parent2', 'child4');
+
+      let nodes = [];
+      tree.traverseDFS('grandparent', (node) => (nodes.push(node)));
+
+      const actual = nodes.join(' -> ');
+      const expected = 'grandparent -> parent1 -> child1 -> child2 -> parent2 -> child3 -> child4';
+
+      assert.equal(actual, expected);
+
+    });
+
+  });
+
 });
