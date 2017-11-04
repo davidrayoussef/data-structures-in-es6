@@ -38,6 +38,40 @@ class Graph {
     return this.nodes[data];
   }
 
+  traverseBFS(node, fn) {
+    if (this.nodes[node] === undefined) return 'Node not found';
+
+    let queue = [node];
+    let visited = [node];
+
+    while (queue.length) {
+      node = queue.shift();
+
+      fn(node);
+
+      for (let edge of this.nodes[node]) {
+        if (!visited.includes(edge)) {
+          visited.push(edge);
+          queue.push(edge);
+        }
+      }
+    }
+  }
+
+  traverseDFS(node, fn, visited = []) {
+    visited.push(node);
+
+    if (this.nodes[node] !== undefined) {
+      fn(node);
+    }
+
+    for (let edge of this.nodes[node]) {
+      if (!visited.includes(edge)) {
+        this.traverseDFS(edge, fn, visited);
+      }
+    }
+  }
+
   toString() {
     console.log(JSON.stringify(this.nodes, null, 2));
   }
