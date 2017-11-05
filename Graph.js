@@ -5,7 +5,7 @@
 class Graph {
   constructor() {
     // Uses an object/dictionary to store nodes/vertices as a prop, and an array of edges/lines as its value
-    this.nodes = {/* 'vertex value': 'edges array' */};
+    this.nodes = {};
   }
 
   addNode(data) {
@@ -49,10 +49,10 @@ class Graph {
 
       fn(node);
 
-      for (let edge of this.nodes[node]) {
-        if (!visited.includes(edge)) {
-          visited.push(edge);
-          queue.push(edge);
+      for (let neighbor of this.nodes[node]) {
+        if (!visited.includes(neighbor)) {
+          visited.push(neighbor);
+          queue.push(neighbor);
         }
       }
     }
@@ -65,11 +65,33 @@ class Graph {
       fn(node);
     }
 
-    for (let edge of this.nodes[node]) {
-      if (!visited.includes(edge)) {
-        this.traverseDFS(edge, fn, visited);
+    for (let neighbor of this.nodes[node]) {
+      if (!visited.includes(neighbor)) {
+        this.traverseDFS(neighbor, fn, visited);
       }
     }
+  }
+
+  pathExists(source, dest) {
+    if (this.nodes[source] === undefined) return 'Node not found';
+
+    let queue = [source];
+    let visited = [source];
+
+    while (queue.length) {
+      let node = queue.shift();
+
+      for (let neighbor of this.nodes[node]) {
+        if (neighbor === dest) return true;
+
+        if (!visited.includes(neighbor)) {
+          visited.push(neighbor);
+          queue.push(neighbor);
+        }
+      }
+    }
+
+    return false;
   }
 
   toString() {

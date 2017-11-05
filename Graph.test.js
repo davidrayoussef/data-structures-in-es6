@@ -170,4 +170,39 @@ describe('Graph', () => {
 
   });
 
+  describe('pathExists', () => {
+
+    it('should return true if a path exists from one node to another', () => {
+
+      let cities = new Graph()
+      cities.addNode('JC');
+      cities.addNode('NYC');
+      cities.addNode('Boston');
+      cities.addNode('Montreal');
+      cities.addEdge('JC', 'NYC');
+      cities.addEdge('NYC', 'Boston');
+      cities.addEdge('Boston', 'Montreal');
+
+      expect( cities.pathExists('JC', 'Montreal') ).to.be.true;
+
+    });
+
+  });
+
+  describe('pathExists', () => {
+
+    it('should return false if no path exists between two nodes', () => {
+
+      let cities = new Graph()
+      cities.addNode('NYC');
+      cities.addNode('Boston');
+      cities.addNode('Honolulu');
+      cities.addEdge('NYC', 'Boston');
+
+      expect( cities.pathExists('NYC', 'Honolulu') ).to.be.false;
+
+    });
+
+  });
+
 });
