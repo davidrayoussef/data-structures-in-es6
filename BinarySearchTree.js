@@ -272,7 +272,7 @@ function serialize(root, str = '') {
 
   str = serialize(root.left, str);
   str = serialize(root.right, str);
-  
+
   return str;
 }
 
@@ -287,6 +287,18 @@ function deserialize(str, arr = str.split('-'), node = new Node(0)) {
 
   node.left = deserialize(str, arr, new Node(null));
   node.right = deserialize(str, arr, new Node(null));
+
+  return node;
+}
+
+function createMinimalBST(arr, start = 0, end = arr.length - 1) {
+  if (end < start) return null;
+
+  const mid = Math.floor((start + end) / 2);
+  let node = new Node( arr[mid] );
+
+  node.left = createMinimalBST(arr, start, mid - 1);
+  node.right = createMinimalBST(arr, mid + 1, end);
 
   return node;
 }
@@ -321,5 +333,6 @@ const n1 = new Node(1);
 const n2 = new Node(4);
 lowestCommonAncestor(nums.root, n1, n2); //=> 3
 largestValueInEachRow(nums.root);
-const simpleNode = {val:10, left: {val: 1, left: null, right: null}, right: {val: 2, left: null, right: null}};
+const simpleNode = {val: 10, left: {val: 1, left: null, right: null}, right: {val: 2, left: null, right: null}};
 sumTreeValues(simpleNode); //=> 13
+createMinimalBST([1,2,3,4,5,6,7]);
