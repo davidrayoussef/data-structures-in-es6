@@ -4,7 +4,7 @@
 
 class Graph {
   constructor() {
-    // Uses an object/dictionary to store nodes/vertices as a prop, and an array of edges/lines as its value
+    // Uses an object/key-value-store to store nodes/vertices as a prop, and an array of edges/lines as its value
     this.nodes = {};
   }
 
