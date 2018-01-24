@@ -68,4 +68,74 @@ describe('LinkedList', () => {
 
   });
 
+  describe('indexOf', () => {
+
+    it('should return the index of the passed in value', () => {
+
+      let linkedList = new LinkedList();
+
+      linkedList.append('value at index 0');
+      linkedList.append('value at index 1');
+      linkedList.append('value at index 2');
+
+      const actual = linkedList.indexOf('value at index 2');
+      const expected = 2;
+
+      assert.equal(actual, expected);
+
+    });
+
+    it('should return -1 when value is not found', () => {
+
+      let linkedList = new LinkedList();
+
+      linkedList.append('apples');
+      linkedList.append('oranges');
+      linkedList.append('grapes');
+
+      const actual = linkedList.indexOf('pears');
+      const expected = -1;
+
+      assert.equal(actual, expected);
+
+    });
+
+  });
+
+  describe('lastIndexOf', () => {
+
+    it('should return the last index of the passed in value', () => {
+
+      let linkedList = new LinkedList();
+
+      linkedList.append('1');
+      linkedList.append('2');
+      linkedList.append('3');
+      linkedList.append('2');
+      linkedList.append('4');
+
+      const actual = linkedList.lastIndexOf('2');
+      const expected = 3;
+
+      assert.equal(actual, expected);
+
+    });
+
+    it('should return -1 when value is not found', () => {
+
+      let linkedList = new LinkedList();
+
+      linkedList.append('bananas');
+      linkedList.append('watermelons');
+      linkedList.append('peaches');
+
+      const actual = linkedList.indexOf('blueberries');
+      const expected = -1;
+
+      assert.equal(actual, expected);
+
+    });
+
+  });
+
 });
