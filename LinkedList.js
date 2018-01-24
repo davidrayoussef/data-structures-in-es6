@@ -95,6 +95,39 @@ class LinkedList {
     return current;
   }
 
+  indexOf(value) {
+    let current = this.head;
+    let index = 0;
+
+    while (current) {
+      if (current.data === value) {
+        return index;
+      }
+
+      current = current.next;
+      index++;
+    }
+
+    return -1;
+  }
+
+  lastIndexOf(value) {
+    let current = this.head;
+    let index = 0;
+    let lastIndex = -1;
+
+    while (current) {
+      if (current.data === value) {
+        lastIndex = index;
+      }
+
+      current = current.next;
+      index++;
+    }
+
+    return lastIndex;
+  }
+
   get(item) {
     const node = this.find(item);
     return node ? node.data : null;
