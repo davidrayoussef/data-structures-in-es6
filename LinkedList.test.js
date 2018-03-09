@@ -68,6 +68,156 @@ describe('LinkedList', () => {
 
   });
 
+  describe('deleteElements', () => {
+
+    it('should remove all elements that match the passed in value', () => {
+
+      let linkedList = new LinkedList();
+
+      linkedList.append(1);
+      linkedList.append(2);
+      linkedList.append(3);
+      linkedList.append(2);
+
+      linkedList.deleteElements(2);
+
+      const actual = JSON.stringify(linkedList);
+      const expected = '{"head":{"data":1,"next":{"data":3,"next":null}}}';
+
+      assert.equal(actual, expected);
+
+    });
+
+  });
+
+  describe('removeDuplicates', () => {
+
+    it('should remove all duplicate values', () => {
+
+      let linkedList = new LinkedList();
+
+      linkedList.append(1);
+      linkedList.append(2);
+      linkedList.append(3);
+      linkedList.append(2);
+      linkedList.append(1);
+      linkedList.append(3);
+
+      linkedList.removeDuplicates();
+
+      const actual = JSON.stringify(linkedList);
+      const expected = '{"head":{"data":1,"next":{"data":2,"next":{"data":3,"next":null}}}}';
+
+      assert.equal(actual, expected);
+
+    });
+
+  });
+
+  describe('findNode', () => {
+
+    it('should return node of matching value', () => {
+
+      let linkedList = new LinkedList();
+
+      linkedList.append('A');
+      linkedList.append('B');
+      linkedList.append('C');
+      linkedList.append('D');
+
+      const result = linkedList.findNode('C');
+
+      const actual = JSON.stringify(result);
+      const expected = '{"data":"C","next":{"data":"D","next":null}}';
+
+      assert.equal(actual, expected);
+
+    });
+
+    it('should return -1 when value is not found', () => {
+
+      let linkedList = new LinkedList();
+
+      linkedList.append('A');
+      linkedList.append('B');
+      linkedList.append('C');
+      linkedList.append('D');
+
+      const actual = linkedList.findNode('Z');
+      const expected = -1;
+
+      assert.equal(actual, expected);
+
+    });
+
+  });
+
+  describe('get', () => {
+
+    it('should return value when found', () => {
+
+      let linkedList = new LinkedList();
+
+      linkedList.append('A');
+      linkedList.append('B');
+      linkedList.append('C');
+      linkedList.append('D');
+
+      const actual = linkedList.get('C');
+      const expected = 'C';
+
+      assert.equal(actual, expected);
+
+    });
+
+    it('should return null when value is not found', () => {
+
+      let linkedList = new LinkedList();
+
+      linkedList.append('A');
+      linkedList.append('B');
+      linkedList.append('C');
+      linkedList.append('D');
+
+      const actual = linkedList.get('Z');
+      const expected = null;
+
+      assert.equal(actual, expected);
+
+    });
+
+  });
+
+  describe('has', () => {
+
+    it('should return true if value exists', () => {
+
+      let linkedList = new LinkedList();
+
+      linkedList.append('A');
+      linkedList.append('B');
+      linkedList.append('C');
+      linkedList.append('D');
+
+      expect( linkedList.has('B') ).to.be.true;
+
+    });
+
+    it('should return false if value does not exist', () => {
+
+      let linkedList = new LinkedList();
+
+      linkedList.append('A');
+      linkedList.append('B');
+      linkedList.append('C');
+      linkedList.append('D');
+
+      expect( linkedList.has('Z') ).to.be.false;
+
+    });
+
+  });
+
   describe('indexOf', () => {
 
     it('should return the index of the passed in value', () => {
