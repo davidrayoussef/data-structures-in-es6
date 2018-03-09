@@ -85,14 +85,44 @@ class LinkedList {
     return this.head;
   }
 
-  find(item) {
+  removeDuplicates() {
+    if (!this.head) return -1;
+
+    let prev = this.head;
+    let current = this.head.next;
+    const set = new Set().add(prev.data);
+
+    while (current) {
+      if ( set.has(current.data) ) {
+        prev.next = current.next;
+      }
+      else {
+        set.add(current.data);
+        prev = current;
+      }
+
+      current = current.next;
+    }
+  }
+
+  findNode(item) {
     let current = this.head;
 
-    while (current.data !== item) {
+    while (current && current.data !== item) {
       current = current.next;
     }
 
-    return current;
+    return current || -1;
+  }
+
+  get(item) {
+    const node = this.findNode(item);
+    return node !== -1 ? node.data : null;
+  }
+
+  has(item) {
+    const node = this.findNode(item);
+    return node !== -1 ? true : false;
   }
 
   indexOf(value) {
@@ -126,11 +156,6 @@ class LinkedList {
     }
 
     return lastIndex;
-  }
-
-  get(item) {
-    const node = this.find(item);
-    return node ? node.data : null;
   }
 
   print() {
@@ -227,19 +252,6 @@ function reversePrint(node) {
   reversePrint(node.next);
 
   console.log(node.data);
-}
-
-function removeDuplicates(head) {
-  let current = head;
-
-  while (current && current.next) {
-    if (current.data === current.next.data) {
-      current.next = current.next.next;
-    }
-    else current = current.next;
-  }
-
-  return head;
 }
 
 function hasCycle(head) {
