@@ -2,7 +2,7 @@ import List from './Array';
 import { expect, assert } from 'chai';
 
 describe('List', () => {
-  
+
   describe('constructor', () => {
 
     it('should return an instance of a List', () => {
@@ -53,7 +53,7 @@ describe('List', () => {
 
     it('should increment when new item is added', () => {
 
-      let list = new List();
+      const list = new List();
       list.push('item');
 
       const actual = list.length;
@@ -65,7 +65,7 @@ describe('List', () => {
 
     it('should decrement when item is removed', () => {
 
-      let list = new List(1,2,3);
+      const list = new List(1,2,3);
       list.pop();
 
       const actual = list.length;
@@ -81,7 +81,7 @@ describe('List', () => {
 
     it('should add item to end of List instance', () => {
 
-      let list = new List();
+      const list = new List();
 
       list.push('first item');
       list.push('second item');
@@ -95,7 +95,7 @@ describe('List', () => {
 
     it('should add several items to List instance if passed more than one argument', () => {
 
-      let list = new List();
+      const list = new List();
 
       list.push('first', 'second', 'third');
 
@@ -112,7 +112,7 @@ describe('List', () => {
 
     it('should return item from end of List instance', () => {
 
-      let list = new List('first', 'last');
+      const list = new List('first', 'last');
 
       const actual = list.pop();
       const expected = 'last';
@@ -123,7 +123,7 @@ describe('List', () => {
 
     it('should remove last item of List instance', () => {
 
-      let list = new List('first', 'second');
+      const list = new List('first', 'second');
 
       list.pop();
 
@@ -136,7 +136,7 @@ describe('List', () => {
 
     it('should decrement length prop after removing item', () => {
 
-      let list = new List('first', 'second');
+      const list = new List('first', 'second');
 
       list.pop();
 
@@ -153,7 +153,7 @@ describe('List', () => {
 
     it('should return item from beginning of List instance', () => {
 
-      let list = new List('first', 'last');
+      const list = new List('first', 'last');
 
       const actual = list.shift();
       const expected = 'first';
@@ -164,7 +164,7 @@ describe('List', () => {
 
     it('should remove first item of List instance', () => {
 
-      let list = new List('first', 'second');
+      const list = new List('first', 'second');
 
       list.shift();
 
@@ -177,7 +177,7 @@ describe('List', () => {
 
     it('should decrement length prop after removing item', () => {
 
-      let list = new List('first', 'second');
+      const list = new List('first', 'second');
 
       list.shift();
 
@@ -194,7 +194,7 @@ describe('List', () => {
 
     it('should add item to beginning of List instance', () => {
 
-      let list = new List();
+      const list = new List();
 
       list.unshift('first item');
       list.unshift('second item');
@@ -208,7 +208,7 @@ describe('List', () => {
 
     it('should add several items to List instance if passed more than one argument', () => {
 
-      let list = new List();
+      const list = new List();
 
       list.unshift('first', 'second', 'third');
 
@@ -225,7 +225,7 @@ describe('List', () => {
 
     it('should correctly remove items', () => {
 
-      let list = new List(1,2,3,4);
+      const list = new List(1,2,3,4);
 
       list.splice(1, 2);
 
@@ -238,7 +238,7 @@ describe('List', () => {
 
     it('should return removed items', () => {
 
-      let list = new List(1,2,3,4);
+      const list = new List(1,2,3,4);
 
       const actual = JSON.stringify( list.splice(1, 2) );
       const expected = '[2,3]';
@@ -249,7 +249,7 @@ describe('List', () => {
 
     it('should add items in correct positions', () => {
 
-      let list = new List('apple', 'pear', 'banana');
+      const list = new List('apple', 'pear', 'banana');
 
       list.splice(2, 0, 'orange', 'melon');
 
@@ -262,7 +262,7 @@ describe('List', () => {
 
     it('should return correct length after removing items', () => {
 
-      let list = new List(1,2,3,4);
+      const list = new List(1,2,3,4);
 
       list.splice(0, 3);
 
@@ -275,11 +275,80 @@ describe('List', () => {
 
   });
 
+  describe('forEach', () => {
+
+    it('should iterate over the List, copying each value to a new array', () => {
+      const list = new List('value1', 'value2', 'value3');
+      const values = [];
+
+      list.forEach(v => {
+        values.push(v);
+      });
+
+      const actual = JSON.stringify(values);
+      const expected = '["value1","value2","value3"]';
+
+      assert.equal(actual, expected);
+
+    });
+
+    it('should iterate over the List, copying each index to a new array', () => {
+      const list = new List('value1', 'value2', 'value3');
+      const indices = [];
+
+      list.forEach((v,i) => {
+        indices.push(i);
+      });
+
+      const actual = JSON.stringify(indices);
+      const expected = '[0,1,2]';
+
+      assert.equal(actual, expected);
+
+    });
+
+    it('should iterate over the List, copying the entire List Object for each iteration', () => {
+      const list = new List(0, 1, 2);
+      const result = [];
+
+      list.forEach((v,i,a) => {
+        result.push(a);
+      });
+
+      const actual = JSON.stringify(result);
+      const expected = '[{"0":0,"1":1,"2":2},{"0":0,"1":1,"2":2},{"0":0,"1":1,"2":2}]';
+
+      assert.equal(actual, expected);
+
+    });
+
+    it('should use the proper context (thisArg as 2nd param) when this keyword is used in callback function', () => {
+      const list = new List(1, 2, 3, 4, 5);
+      const obj = {
+        val: 0,
+        sum: function(arr) {
+          arr.forEach(function(v) {
+            this.val += v;
+          }, this);
+        }
+      };
+
+      obj.sum(list);
+
+      const actual = obj.val;
+      const expected = 15;
+
+      assert.equal(actual, expected);
+
+    });
+
+  });
+
   describe('filter', () => {
 
     it('should return an array of evens if passed a predicate function for evens', () => {
 
-      let list = new List(1,2,3,4,5,6,7,8,9);
+      const list = new List(1,2,3,4,5,6,7,8,9);
 
       const isEven = (n) => n % 2 === 0;
       const evens = list.filter(isEven);
@@ -291,9 +360,9 @@ describe('List', () => {
 
     });
 
-    it('should return numbers from list of mixed types if passed predicate function for numbers', () => {
+    it('should return numbers from list of mixed types when passed a predicate function for numbers', () => {
 
-      let list = new List(5, null, undefined, 2.5, {}, [], 'string', -3);
+      const list = new List(5, null, undefined, 2.5, {}, [], 'string', -3);
 
       const isNumber = (n) => typeof n === 'number';
       const nums = list.filter(isNumber);
@@ -306,7 +375,7 @@ describe('List', () => {
 
     it('should filter list of objects based on passed predicate function', () => {
 
-      let people = new List(
+      const people = new List(
         { name: 'Pete', age: 19 },
         { name: 'Emily', age: 25 },
         { name: 'Lou', age: 30 },
