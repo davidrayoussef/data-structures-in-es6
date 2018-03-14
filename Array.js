@@ -87,7 +87,7 @@ class List {
 
   splice(startIndex, deleteCount = 0, ...itemsToAdd) {
     const itemLength = this.length - 1;
-    let itemsToRemove = [];
+    const itemsToRemove = [];
 
     if (deleteCount > this.length) {
       deleteCount = this.length - startIndex;
@@ -108,7 +108,7 @@ class List {
 
     if (itemsToAdd.length > 0) {
       const itemLength = this.length - 1;
-      let rest = [];
+      const rest = [];
 
       for (let j = startIndex; j <= itemLength; j++) {
         rest.unshift(this.pop());
@@ -120,12 +120,18 @@ class List {
     return itemsToRemove;
   }
 
+  forEach(fn, thisArg) {
+    for (let index = 0; index < this.length; index++) {
+      fn.call(thisArg, this[index], index, this);
+    }
+  }
+
   filter(fn) {
-    let result = [];
+    const result = [];
     const arr = Object(this);
 
     for (let index = 0; index < this.length; index++) {
-      let val = this[index];
+      const val = this[index];
 
       if ( fn(val, index, arr) ) {
         result.push(val);
@@ -134,6 +140,8 @@ class List {
 
     return result;
   }
+
+  // TODO sort, map, reduce, every, some, find, findIndex, ...
 }
 
 export default List;
