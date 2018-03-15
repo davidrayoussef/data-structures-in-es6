@@ -275,6 +275,22 @@ describe('List', () => {
 
   });
 
+  describe('sort', () => {
+
+    it('should correctly sort numbers in ascending order', () => {
+
+      const nums = new List(6, 4, 8, 2, 7, 9, 0, 1, 3, -999, 10, 6);
+      nums.sort();
+
+      const actual = JSON.stringify( Array.from(nums) );
+      const expected = '[-999,0,1,2,3,4,6,6,7,8,9,10]';
+
+      assert.equal(actual, expected);
+
+    });
+
+  });
+
   describe('forEach', () => {
 
     it('should iterate over the List, copying each value to a new array', () => {
