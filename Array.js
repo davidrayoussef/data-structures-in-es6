@@ -120,6 +120,18 @@ class List {
     return itemsToRemove;
   }
 
+  sort() {
+    for (let i = this.length - 1; i >= 1; i--) {
+      for (let j = 0; j <= i; j++) {
+        if (this[j] > this[j + 1]) {
+          [ this[j + 1], this[j] ] = [ this[j], this[j + 1] ];
+        }
+      }
+    }
+
+    return this;
+  }
+
   forEach(fn, thisArg) {
     for (let index = 0; index < this.length; index++) {
       fn.call(thisArg, this[index], index, this);
@@ -141,7 +153,7 @@ class List {
     return result;
   }
 
-  // TODO sort, map, reduce, every, some, find, findIndex, ...
+  // TODO map, reduce, every, some, find, findIndex, ...
 }
 
 export default List;
