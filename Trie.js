@@ -23,42 +23,41 @@ class Trie {
   }
 
   add(key, node = this.root) {
-    let currentChar = key[0];
+    const currentChar = key[0];
 
     if (!currentChar) {
       node.setEnd();
     }
-    else if ( !node.children[currentChar] ) {
-      node.children[currentChar] = new Node();
-      return this.add( key.slice(1), node.children[currentChar] );
-    }
     else {
+      if ( !node.children[currentChar] ) {
+        node.children[currentChar] = new Node();
+      }
+
       return this.add( key.slice(1), node.children[currentChar] );
     }
   }
 
-  traverse(node, str = '', words = []) {
+  traverse(node, fn, str = '') {
     if (node.children) {
-      let obj = node.children;
+      const { children } = node;
 
-      Object.keys(obj).map(key => {
-        this.traverse( obj[key], str + key, words );
+      Object.keys(children).map(key => {
+        this.traverse( children[key], fn, str + key);
       });
 
       if (node.isEnd()) {
-        words.push(str);
+        fn(str);
       }
     }
     else {
-      if (str.length) words.push(str);
+      if (str.length) fn(str);
       return;
     }
 
-    return words;
   }
 
-  print() {
-    return this.traverse(this.root);
+  printWords() {
+    this.traverse(this.root, console.log);
   }
 
   stringify() {
@@ -66,10 +65,10 @@ class Trie {
   }
 }
 
-let t = new Trie();
+const t = new Trie();
 t.add('cat');
 t.add('car');
-t.print(); // ["cat", "car"]
+t.printWords(); // "cat\ncar"
 t.stringify();
 /*
 "{
