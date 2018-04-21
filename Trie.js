@@ -57,7 +57,10 @@ class Trie {
   }
 
   printWords() {
-    this.traverse(this.root, console.log);
+    const arr = [];
+    const addElement = (el) => arr.push(el);
+    this.traverse(this.root, addElement);
+    console.log(arr);
   }
 
   stringify() {
@@ -68,7 +71,7 @@ class Trie {
 const t = new Trie();
 t.add('cat');
 t.add('car');
-t.printWords(); // "cat\ncar"
+t.printWords(); // ["cat", "car"]
 t.stringify();
 /*
 "{
