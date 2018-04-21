@@ -106,6 +106,17 @@ class BinarySearchTree {
     }
     return current;
   }
+
+  contains(val) {
+    if (this.val === val) return true;
+    else if (val < this.val) {
+      return this.left ? this.left.contains(val) : false;
+    }
+    else if (val > this.val) {
+      return this.right ? this.right.contains(val) : false;
+    }
+    return false;
+  }
 }
 
 function invert(node) {
