@@ -30,14 +30,14 @@ class LinkedList {
   }
 
   prepend(data) {
-    let newHead = new Node(data);
+    const newHead = new Node(data);
     newHead.next = this.head;
     this.head = newHead;
   }
 
   insert(position, data) {
-    let newNode = new Node(data);
-    let head = this.head;
+    const newNode = new Node(data);
+    const head = this.head;
 
     if (!head) {
       this.head = newNode;
@@ -169,7 +169,7 @@ class LinkedList {
 
   printLinks() {
     let current = this.head;
-    let elements = [];
+    const elements = [];
 
     while (current) {
       elements.push(current.data);
@@ -181,7 +181,7 @@ class LinkedList {
 
   getRandom() {
     let current = this.head;
-    let elements = [];
+    const elements = [];
 
     while (current) {
       elements.push(current.data);
@@ -189,6 +189,19 @@ class LinkedList {
     }
 
     return elements[Math.floor(Math.random() * elements.length)];
+  }
+
+  forEach(fn) {
+    if (typeof fn !== 'function') throw new TypeError(`${fn} is not a function`);
+
+    let node = this.head;
+    let i = 0;
+
+    while (node) {
+      node.data = fn(node.data, i);
+      node = node.next;
+      i++;
+    }
   }
 }
 
@@ -350,7 +363,7 @@ function reverseList(head) {
 }
 
 function isPalindrome(head) {
-  let arr = [];
+  const arr = [];
   let current = head;
 
   while (current) {
@@ -366,7 +379,7 @@ function oddEvenList(head) {
 
   let odd = head;
   let even = head.next;
-  let evenHead = even;
+  const evenHead = even;
 
   while (even && even.next) {
     odd.next = even.next;
@@ -384,8 +397,8 @@ function oddEvenList(head) {
 function partitionList(head, x) {
   if (!head) return head;
 
-  let head1 = new Node(0);
-  let head2 = new Node(0);
+  const head1 = new Node(0);
+  const head2 = new Node(0);
   let current1 = head1;
   let current2 = head2;
 
@@ -408,7 +421,7 @@ function partitionList(head, x) {
 }
 
 function listToArray(head) {
-  let arr = [];
+  const arr = [];
   let current = head;
 
   while (current) {
@@ -435,7 +448,7 @@ function getNthNode(node, index) {
 }
 
 function sortedInsert(head, data) {
-  let newNode = new Node(data);
+  const newNode = new Node(data);
 
   if (!head) return newNode;
 
@@ -491,7 +504,7 @@ function allMatch(head, fn) {
 
 function map(head, fn) {
   let newNode = new Node(0);
-  let copy = newNode;
+  const copy = newNode;
 
   while (head) {
     newNode.next = new Node( fn(head.data) );
@@ -505,7 +518,7 @@ function map(head, fn) {
 function filter(head, fn) {
   let current = head;
   let newNode = new Node(0);
-  let copy = newNode;
+  const copy = newNode;
 
   while (current) {
     if ( fn(current.data) ) {
