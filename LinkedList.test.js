@@ -17,7 +17,7 @@ describe('LinkedList', () => {
 
     it('should add a value to the end', () => {
 
-      let nums = new LinkedList();
+      const nums = new LinkedList();
 
       nums.append(1);
       nums.append(2);
@@ -35,7 +35,7 @@ describe('LinkedList', () => {
 
     it('should add a value to the beginning', () => {
 
-      let cities = new LinkedList();
+      const cities = new LinkedList();
 
       cities.prepend('New York City');
       cities.prepend('Los Angeles');
@@ -53,7 +53,7 @@ describe('LinkedList', () => {
 
     it('should insert a node at position 1 with a value of "100"', () => {
 
-      let linkedList = new LinkedList();
+      const linkedList = new LinkedList();
 
       linkedList.append('0');
       linkedList.append('2');
@@ -72,7 +72,7 @@ describe('LinkedList', () => {
 
     it('should remove all elements that match the passed in value', () => {
 
-      let linkedList = new LinkedList();
+      const linkedList = new LinkedList();
 
       linkedList.append(1);
       linkedList.append(2);
@@ -94,7 +94,7 @@ describe('LinkedList', () => {
 
     it('should remove all duplicate values', () => {
 
-      let linkedList = new LinkedList();
+      const linkedList = new LinkedList();
 
       linkedList.append(1);
       linkedList.append(2);
@@ -118,7 +118,7 @@ describe('LinkedList', () => {
 
     it('should return node of matching value', () => {
 
-      let linkedList = new LinkedList();
+      const linkedList = new LinkedList();
 
       linkedList.append('A');
       linkedList.append('B');
@@ -136,7 +136,7 @@ describe('LinkedList', () => {
 
     it('should return -1 when value is not found', () => {
 
-      let linkedList = new LinkedList();
+      const linkedList = new LinkedList();
 
       linkedList.append('A');
       linkedList.append('B');
@@ -156,7 +156,7 @@ describe('LinkedList', () => {
 
     it('should return value when found', () => {
 
-      let linkedList = new LinkedList();
+      const linkedList = new LinkedList();
 
       linkedList.append('A');
       linkedList.append('B');
@@ -172,7 +172,7 @@ describe('LinkedList', () => {
 
     it('should return null when value is not found', () => {
 
-      let linkedList = new LinkedList();
+      const linkedList = new LinkedList();
 
       linkedList.append('A');
       linkedList.append('B');
@@ -192,7 +192,7 @@ describe('LinkedList', () => {
 
     it('should return true if value exists', () => {
 
-      let linkedList = new LinkedList();
+      const linkedList = new LinkedList();
 
       linkedList.append('A');
       linkedList.append('B');
@@ -205,7 +205,7 @@ describe('LinkedList', () => {
 
     it('should return false if value does not exist', () => {
 
-      let linkedList = new LinkedList();
+      const linkedList = new LinkedList();
 
       linkedList.append('A');
       linkedList.append('B');
@@ -222,7 +222,7 @@ describe('LinkedList', () => {
 
     it('should return the index of the passed in value', () => {
 
-      let linkedList = new LinkedList();
+      const linkedList = new LinkedList();
 
       linkedList.append('value at index 0');
       linkedList.append('value at index 1');
@@ -237,7 +237,7 @@ describe('LinkedList', () => {
 
     it('should return -1 when value is not found', () => {
 
-      let linkedList = new LinkedList();
+      const linkedList = new LinkedList();
 
       linkedList.append('apples');
       linkedList.append('oranges');
@@ -256,7 +256,7 @@ describe('LinkedList', () => {
 
     it('should return the last index of the passed in value', () => {
 
-      let linkedList = new LinkedList();
+      const linkedList = new LinkedList();
 
       linkedList.append('1');
       linkedList.append('2');
@@ -273,7 +273,7 @@ describe('LinkedList', () => {
 
     it('should return -1 when value is not found', () => {
 
-      let linkedList = new LinkedList();
+      const linkedList = new LinkedList();
 
       linkedList.append('bananas');
       linkedList.append('watermelons');
@@ -283,6 +283,37 @@ describe('LinkedList', () => {
       const expected = -1;
 
       assert.equal(actual, expected);
+
+    });
+
+  });
+
+  describe('forEach', () => {
+
+    it('should correctly run a function on each node value', () => {
+      
+      const nums = new LinkedList();
+      const double = (n) => n * 2;
+
+      nums.append(1);
+      nums.append(2);
+      nums.append(3);            
+
+      nums.forEach(double);
+
+      const actual = JSON.stringify(nums);
+      const expected = '{"head":{"data":2,"next":{"data":4,"next":{"data":6,"next":null}}}}';
+
+      assert.equal(actual, expected);
+
+    });
+
+    it('should throw Error when a function is not passed', () => {
+      
+      const nums = new LinkedList();
+      const notAFunction = 'string';
+
+      expect( () => nums.forEach(notAFunction) ).to.throw();
 
     });
 
