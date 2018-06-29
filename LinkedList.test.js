@@ -310,10 +310,41 @@ describe('LinkedList', () => {
 
     it('should throw Error when a function is not passed', () => {
       
-      const nums = new LinkedList();
+      const linkedList = new LinkedList();
       const notAFunction = 'string';
 
-      expect( () => nums.forEach(notAFunction) ).to.throw();
+      expect( () => linkedList.forEach(notAFunction) ).to.throw();
+
+    });
+
+  });
+
+  describe('map', () => {
+
+    it('should run a function on each node value and return a new Linked List with the correct results', () => {
+
+      const nums = new LinkedList();
+      const double = (n) => n * 2;
+
+      nums.append(1);
+      nums.append(2);
+      nums.append(3);   
+
+      const result = nums.map(double);
+
+      const actual = JSON.stringify(result);
+      const expected = '{"head":{"data":2,"next":{"data":4,"next":{"data":6,"next":null}}}}';
+
+      assert.equal(actual, expected);
+
+    });
+
+    it('should throw Error when a function is not passed', () => {
+      
+      const linkedList = new LinkedList();
+      const notAFunction = 'string';
+
+      expect( () => linkedList.map(notAFunction) ).to.throw();
 
     });
 
