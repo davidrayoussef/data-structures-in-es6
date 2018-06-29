@@ -194,14 +194,35 @@ class LinkedList {
   forEach(fn) {
     if (typeof fn !== 'function') throw new TypeError(`${fn} is not a function`);
 
-    let node = this.head;
+    let current = this.head;
     let i = 0;
 
-    while (node) {
-      node.data = fn(node.data, i);
-      node = node.next;
+    while (current) {
+      current.data = fn(current.data, i);
+      current = current.next;
       i++;
     }
+  }
+
+  map(fn) {
+    if (typeof fn !== 'function') throw new TypeError(`${fn} is not a function`);
+
+    let current = this.head;
+    let i = 0;
+    let newNode = new Node(0);
+    const copy = newNode;
+  
+    while (current) {
+      newNode.next = new Node( fn(current.data, i) );
+      current = current.next;
+      newNode = newNode.next;
+      i++;
+    }
+    
+    const newList = new LinkedList();
+    newList.head = copy.next;
+
+    return newList;
   }
 }
 
@@ -500,19 +521,6 @@ function allMatch(head, fn) {
   }
 
   return true;
-}
-
-function map(head, fn) {
-  let newNode = new Node(0);
-  const copy = newNode;
-
-  while (head) {
-    newNode.next = new Node( fn(head.data) );
-    head = head.next;
-    newNode = newNode.next;
-  }
-
-  return copy.next;
 }
 
 function filter(head, fn) {
