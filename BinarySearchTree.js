@@ -99,19 +99,38 @@ class BinarySearchTree {
 
       if (!current) return null;
     }
+
     return current;
   }
 
   contains(val) {
-    if (this.val === val) return true;
-    else if (val < this.val) {
-      return this.left ? this.left.contains(val) : false;
+    let current = this.root;
+
+    while (current.val !== val) {
+      current = val < current.val ? current.left : current.right;
+
+      if (!current) return false;
     }
-    else if (val > this.val) {
-      return this.right ? this.right.contains(val) : false;
-    }
-    return false;
+
+    return true;
   }
+}
+
+function printPaths(node, path = [], pathLength = 0, paths = []) {
+  if (!node) return [];
+
+  path[pathLength] = node.val;
+  pathLength++;
+
+  if (!node.left && !node.right) {
+    paths.push(Array.from({length: pathLength}, (v,i) => path[i]).join('->'));
+  }
+  else {
+    printPaths(node.left, path, pathLength, paths);
+    printPaths(node.right, path, pathLength, paths);
+  }
+
+  return paths.join('  ');
 }
 
 function invert(node) {
