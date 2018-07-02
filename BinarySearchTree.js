@@ -46,34 +46,29 @@ class BinarySearchTree {
     }
   }
 
-  inOrder(node, nodes = []) {
+  inOrder(node, fn) {
+    debugger;
     if (node) {
-      this.inOrder(node.left, nodes);
-      nodes.push(node.val);
-      this.inOrder(node.right, nodes);
+      this.inOrder(node.left, fn);
+      fn(node.val);
+      this.inOrder(node.right, fn);
     }
-
-    return nodes.join(' ');
   }
 
-  preOrder(node, nodes = []) {
+  preOrder(node, fn) {
     if (node) {
-      nodes.push(node.val);
-      this.preOrder(node.left, nodes);
-      this.preOrder(node.right, nodes);
+      fn(node.val);
+      this.preOrder(node.left, fn);
+      this.preOrder(node.right, fn);
     }
-
-    return nodes.join(' ');
   }
 
-  postOrder(node, nodes = []) {
+  postOrder(node, fn) {
     if (node) {
-      this.postOrder(node.left, nodes);
-      this.postOrder(node.right, nodes);
-      nodes.push(node.val);
+      this.postOrder(node.left, fn);
+      this.postOrder(node.right, fn);
+      fn(node.val);
     }
-
-    return nodes.join(' ');
   }
 
   getMin() {
