@@ -156,23 +156,6 @@ function lowestCommonAncestor(node, n1, n2) {
   else return node.val;
 }
 
-function printPaths(node, path = [], pathLength = 0, paths = []) {
-  if (!node) return [];
-
-  path[pathLength] = node.val;
-  pathLength++;
-
-  if (!node.left && !node.right) {
-    paths.push(Array.from({length: pathLength}, (v,i) => path[i]).join('->'));
-  }
-  else {
-    printPaths(node.left, path, pathLength, paths);
-    printPaths(node.right, path, pathLength, paths);
-  }
-
-  return paths.join('  ');
-}
-
 function sumOfLeftLeaves(node) {
   let sum = 0;
 
@@ -328,36 +311,30 @@ function createMinimalBST(arr, start = 0, end = arr.length - 1) {
   return node;
 }
 
-let nums = new BinarySearchTree();
-nums.insert(7);
-nums.insert(3);
-nums.insert(11);
-nums.insert(1);
-nums.insert(5);
-nums.insert(9);
-nums.insert(13);
-nums.insert(0);
-nums.insert(2);
-nums.insert(4);
-nums.insert(6);
-nums.insert(8);
-nums.insert(10);
-nums.insert(12);
-nums.insert(14);
-console.log(nums.inOrder(nums.root)); //=> "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14"
-console.log(nums.preOrder(nums.root)); //=> "7 3 1 0 2 5 4 6 11 9 8 10 13 12 14"
-console.log(nums.postOrder(nums.root)); //=> "0 2 1 4 6 5 3 8 10 9 12 14 13 11 7"
-const min = nums.getMin();
-console.log(`Minimum value: ${min}`); //=> "Minimum value: 0"
-const max = nums.getMax();
-console.log(`Maximum value: ${max}`); //=> "Maximum value: 14"
-console.log(printPaths(nums.root)); //=> 7->3->1->0  7->3->1->2  7->3->5->4  7->3->5->6  7->11->9->8  7->11->9->10  7->11->13->12  7->11->13->14
-console.log(sumOfLeftLeaves(nums.root)); //=> 24
-console.log(maxDepth(nums.root)); //=> 4
-const n1 = new Node(1);
-const n2 = new Node(4);
-lowestCommonAncestor(nums.root, n1, n2); //=> 3
-largestValueInEachRow(nums.root);
-const simpleNode = {val: 10, left: {val: 1, left: null, right: null}, right: {val: 2, left: null, right: null}};
-sumTreeValues(simpleNode); //=> 13
-createMinimalBST([1,2,3,4,5,6,7]);
+function breadthFirstTraverse(node, fn) {
+  if (!node) return;
+  
+  const queue = [node];
+
+  while (queue.length) {
+    const curr = queue.shift();
+    
+    fn(curr.val);
+    
+    if (curr.left) queue.push(curr.left);
+    if (curr.right) queue.push(curr.right);
+  }
+}
+
+export default BinarySearchTree;
+
+export { 
+  Node, 
+  printPaths, 
+  sumOfLeftLeaves, 
+  maxDepth, 
+  lowestCommonAncestor,
+  largestValueInEachRow,
+  sumTreeValues,
+  createMinimalBST
+};
