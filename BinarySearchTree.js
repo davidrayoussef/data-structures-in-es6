@@ -47,7 +47,6 @@ class BinarySearchTree {
   }
 
   inOrder(node, fn) {
-    debugger;
     if (node) {
       this.inOrder(node.left, fn);
       fn(node.val);

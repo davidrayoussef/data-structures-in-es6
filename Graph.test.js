@@ -2,35 +2,26 @@ import Graph from './Graph';
 import { expect, assert } from 'chai';
 
 describe('Graph', () => {
-
   describe('constructor', () => {
-
     it('should return an instance of a Graph', () => {
-
       expect( new Graph() ).to.be.an.instanceof(Graph);
-
     });
-
   });
 
   describe('addNode', () => {
-
     it('should add a node to the graph', () => {
-
       const friends = new Graph();
+
       friends.addNode('David');
 
       expect( friends.nodes.hasOwnProperty('David') ).to.be.true;
-
     });
-
   });
 
   describe('addEdge', () => {
-
     it('should add an edge for two nodes', () => {
-
       const cities = new Graph();
+
       cities.addNode('New York City');
       cities.addNode('Jersey City');
       cities.addEdge('New York City', 'Jersey City');
@@ -39,16 +30,13 @@ describe('Graph', () => {
       const jcToNyc = cities.nodes['Jersey City'].some(edge => edge === 'New York City');
 
       expect( nycToJc && jcToNyc ).to.be.true;
-
     });
-
   });
 
   describe('removeNode', () => {
-
     it('should remove a node from the graph', () => {
-
       const friends = new Graph();
+
       friends.addNode('David');
       friends.addNode('Gina');
       friends.addNode('Justin');
@@ -58,16 +46,13 @@ describe('Graph', () => {
       friends.removeNode('David');
 
       expect( friends.nodes.hasOwnProperty('David') ).to.be.false;
-
     });
-
   });
 
   describe('removeEdge', () => {
-
     it('should remove an edge for two nodes', () => {
-
       const cities = new Graph();
+
       cities.addNode('Los Angeles');
       cities.addNode('San Francisco');
       cities.addEdge('Los Angeles', 'San Francisco');
@@ -83,16 +68,13 @@ describe('Graph', () => {
       const disconnected = nycToJcDisconnected && jcToNycDisconnected;
 
       expect(connected && disconnected).to.be.true;
-
     });
-
   });
 
   describe('find', () => {
-
     it('should return the value of a node (an array of its edges)', () => {
-
       const nums = new Graph();
+
       nums.addNode('1');
       nums.addNode('2');
       nums.addNode('3');
@@ -103,41 +85,32 @@ describe('Graph', () => {
       const expected = '["2","3"]';
 
       assert.equal(actual, expected);
-
     });
-
   });
 
   describe('contains', () => {
-    
     let nums;
 
     beforeEach(() => {
-      nums = new Graph();
+     nums = new Graph();
       nums.addNode('1');
       nums.addNode('2');
       nums.addNode('3');
-    })
+    });
 
     it('should return true if value exists', () => {
-
       expect( nums.contains('2') ).to.be.true;
-
     });
 
     it('should return false if value is not found', () => {
-
       expect( nums.contains('4') ).to.be.false;
-
     });
-    
   });
 
   describe('traverseBFS', () => {
-
     it('should traverse sideways through the graph, visiting neighbor nodes first', () => {
-
       const tree = new Graph();
+
       tree.addNode('grandparent');
       tree.addNode('parent1');
       tree.addNode('parent2');
@@ -153,22 +126,20 @@ describe('Graph', () => {
       tree.addEdge('parent2', 'child4');
 
       const nodes = [];
+
       tree.traverseBFS('grandparent', (node) => (nodes.push(node)));
 
       const actual = nodes.join(' -> ');
       const expected = 'grandparent -> parent1 -> parent2 -> child1 -> child2 -> child3 -> child4';
 
       assert.equal(actual, expected);
-
     });
-
   });
 
   describe('traverseDFS', () => {
-
     it('should traverse recursively down a graph, visiting all descendants first', () => {
-
       const tree = new Graph();
+
       tree.addNode('grandparent');
       tree.addNode('parent1');
       tree.addNode('parent2');
@@ -184,22 +155,20 @@ describe('Graph', () => {
       tree.addEdge('parent2', 'child4');
 
       const nodes = [];
+
       tree.traverseDFS('grandparent', (node) => (nodes.push(node)));
 
       const actual = nodes.join(' -> ');
       const expected = 'grandparent -> parent1 -> child1 -> child2 -> parent2 -> child3 -> child4';
 
       assert.equal(actual, expected);
-
     });
-
   });
 
   describe('pathExists', () => {
-
     it('should return true if a path exists from one node to another', () => {
+      const cities = new Graph();
 
-      const cities = new Graph()
       cities.addNode('JC');
       cities.addNode('NYC');
       cities.addNode('Boston');
@@ -209,21 +178,17 @@ describe('Graph', () => {
       cities.addEdge('Boston', 'Montreal');
 
       expect( cities.pathExists('JC', 'Montreal') ).to.be.true;
-
     });
 
     it('should return false if no path exists between two nodes', () => {
+      const cities = new Graph();
 
-      const cities = new Graph()
       cities.addNode('NYC');
       cities.addNode('Boston');
       cities.addNode('Honolulu');
       cities.addEdge('NYC', 'Boston');
 
       expect( cities.pathExists('NYC', 'Honolulu') ).to.be.false;
-
     });
-
   });
-
 });
