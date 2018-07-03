@@ -17,7 +17,7 @@ describe('Graph', () => {
 
     it('should add a node to the graph', () => {
 
-      let friends = new Graph();
+      const friends = new Graph();
       friends.addNode('David');
 
       expect( friends.nodes.hasOwnProperty('David') ).to.be.true;
@@ -30,7 +30,7 @@ describe('Graph', () => {
 
     it('should add an edge for two nodes', () => {
 
-      let cities = new Graph();
+      const cities = new Graph();
       cities.addNode('New York City');
       cities.addNode('Jersey City');
       cities.addEdge('New York City', 'Jersey City');
@@ -48,7 +48,7 @@ describe('Graph', () => {
 
     it('should remove a node from the graph', () => {
 
-      let friends = new Graph();
+      const friends = new Graph();
       friends.addNode('David');
       friends.addNode('Gina');
       friends.addNode('Justin');
@@ -67,7 +67,7 @@ describe('Graph', () => {
 
     it('should remove an edge for two nodes', () => {
 
-      let cities = new Graph();
+      const cities = new Graph();
       cities.addNode('Los Angeles');
       cities.addNode('San Francisco');
       cities.addEdge('Los Angeles', 'San Francisco');
@@ -92,7 +92,7 @@ describe('Graph', () => {
 
     it('should return the value of a node (an array of its edges)', () => {
 
-      let nums = new Graph();
+      const nums = new Graph();
       nums.addNode('1');
       nums.addNode('2');
       nums.addNode('3');
@@ -108,11 +108,36 @@ describe('Graph', () => {
 
   });
 
+  describe('contains', () => {
+    
+    let nums;
+
+    beforeEach(() => {
+      nums = new Graph();
+      nums.addNode('1');
+      nums.addNode('2');
+      nums.addNode('3');
+    })
+
+    it('should return true if value exists', () => {
+
+      expect( nums.contains('2') ).to.be.true;
+
+    });
+
+    it('should return false if value is not found', () => {
+
+      expect( nums.contains('4') ).to.be.false;
+
+    });
+    
+  });
+
   describe('traverseBFS', () => {
 
     it('should traverse sideways through the graph, visiting neighbor nodes first', () => {
 
-      let tree = new Graph();
+      const tree = new Graph();
       tree.addNode('grandparent');
       tree.addNode('parent1');
       tree.addNode('parent2');
@@ -127,7 +152,7 @@ describe('Graph', () => {
       tree.addEdge('parent2', 'child3');
       tree.addEdge('parent2', 'child4');
 
-      let nodes = [];
+      const nodes = [];
       tree.traverseBFS('grandparent', (node) => (nodes.push(node)));
 
       const actual = nodes.join(' -> ');
@@ -143,7 +168,7 @@ describe('Graph', () => {
 
     it('should traverse recursively down a graph, visiting all descendants first', () => {
 
-      let tree = new Graph();
+      const tree = new Graph();
       tree.addNode('grandparent');
       tree.addNode('parent1');
       tree.addNode('parent2');
@@ -158,7 +183,7 @@ describe('Graph', () => {
       tree.addEdge('parent2', 'child3');
       tree.addEdge('parent2', 'child4');
 
-      let nodes = [];
+      const nodes = [];
       tree.traverseDFS('grandparent', (node) => (nodes.push(node)));
 
       const actual = nodes.join(' -> ');
@@ -174,7 +199,7 @@ describe('Graph', () => {
 
     it('should return true if a path exists from one node to another', () => {
 
-      let cities = new Graph()
+      const cities = new Graph()
       cities.addNode('JC');
       cities.addNode('NYC');
       cities.addNode('Boston');
@@ -187,13 +212,9 @@ describe('Graph', () => {
 
     });
 
-  });
-
-  describe('pathExists', () => {
-
     it('should return false if no path exists between two nodes', () => {
 
-      let cities = new Graph()
+      const cities = new Graph()
       cities.addNode('NYC');
       cities.addNode('Boston');
       cities.addNode('Honolulu');
