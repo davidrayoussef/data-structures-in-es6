@@ -4,7 +4,7 @@
 
 class Graph {
   constructor() {
-    // Uses an object/key-value-store to store nodes/vertices as a prop, and an array of edges/lines as its value
+    // Uses an object to store nodes as props, and an array of edges as the prop's value (Adjacency List)
     this.nodes = {};
   }
 
@@ -38,18 +38,22 @@ class Graph {
     return this.nodes[data];
   }
 
+  contains(data) {
+    return this.nodes[data] !== undefined;
+  }
+
   traverseBFS(node, fn) {
     if (this.nodes[node] === undefined) return 'Node not found';
 
-    let queue = [node];
-    let visited = [node];
+    const queue = [node];
+    const visited = [node];
 
     while (queue.length) {
       node = queue.shift();
 
       fn(node);
 
-      for (let neighbor of this.nodes[node]) {
+      for (const neighbor of this.nodes[node]) {
         if (!visited.includes(neighbor)) {
           visited.push(neighbor);
           queue.push(neighbor);
@@ -65,7 +69,7 @@ class Graph {
       fn(node);
     }
 
-    for (let neighbor of this.nodes[node]) {
+    for (const neighbor of this.nodes[node]) {
       if (!visited.includes(neighbor)) {
         this.traverseDFS(neighbor, fn, visited);
       }
@@ -75,13 +79,13 @@ class Graph {
   pathExists(source, dest) {
     if (this.nodes[source] === undefined) return 'Node not found';
 
-    let queue = [source];
-    let visited = [source];
+    const queue = [source];
+    const visited = [source];
 
     while (queue.length) {
-      let node = queue.shift();
+      const node = queue.shift();
 
-      for (let neighbor of this.nodes[node]) {
+      for (const neighbor of this.nodes[node]) {
         if (neighbor === dest) return true;
 
         if (!visited.includes(neighbor)) {
