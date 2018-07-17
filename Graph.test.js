@@ -192,7 +192,7 @@ describe('Graph', () => {
     });
   });
 
-  describe('shortestPath methods', () => {
+  describe('shortest path methods', () => {
     let graph;
 
     beforeEach(() => {
@@ -232,6 +232,28 @@ describe('Graph', () => {
       it('should return the source, if source and target are the same', () => {
         const actual = graph.shortestPath('A', 'A');
         const expected = 'A';
+
+        assert.equal(actual, expected);
+      });
+    });
+
+    describe('shortestPathLength', () => {
+      it('should return the shortest path length between two nodes', () => {
+        const actual = graph.shortestPathLength('A', 'F');
+        const expected = 3;
+
+        assert.equal(actual, expected);
+      });
+
+      it('should return false if no path exists', () => {
+        const result = graph.shortestPathLength('B', 'G');
+        
+        expect(result).to.be.false;
+      });
+
+      it('should return 0 if source and target are the same', () => {
+        const actual = graph.shortestPathLength('C', 'C');
+        const expected = 0;
 
         assert.equal(actual, expected);
       });
