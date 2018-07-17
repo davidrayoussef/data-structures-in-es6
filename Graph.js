@@ -99,7 +99,7 @@ class Graph {
 
   shortestPath(source, target) {
     if (source === target) return source;
-    
+
     const queue = [source];
     const visited = [source];
     const parents = {};
@@ -132,6 +132,41 @@ class Graph {
     }
 
     return 'No path exists.';
+  }
+
+  shortestPathLength(source, target) {
+    if (source === target) return 0;
+
+    const queue = [source];
+    const visited = [source];
+    const parents = {};
+
+    while (queue.length) {
+      let node = queue.shift();
+
+      for (const neighbor of this.nodes[node]) {
+        if (!visited.includes(neighbor)) {
+          visited.push(neighbor);
+
+          if (neighbor === target) {
+            let length = 1;
+
+            // backtrack
+            while (node !== source) {
+              node = parents[node];
+              length++;
+            }
+
+            return length;
+          }
+
+          queue.push(neighbor);
+          parents[neighbor] = node;
+        }
+      }
+    }
+
+    return false;
   }
 
   toString() {
