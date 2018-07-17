@@ -63,11 +63,10 @@ class Graph {
   }
 
   traverseDFS(node, fn, visited = []) {
-    visited.push(node);
+    if (this.nodes[node] === undefined) return 'Node not found';
 
-    if (this.nodes[node] !== undefined) {
-      fn(node);
-    }
+    fn(node);
+    visited.push(node);
 
     for (const neighbor of this.nodes[node]) {
       if (!visited.includes(neighbor)) {
@@ -96,6 +95,43 @@ class Graph {
     }
 
     return false;
+  }
+
+  shortestPath(source, target) {
+    if (source === target) return source;
+    
+    const queue = [source];
+    const visited = [source];
+    const parents = {};
+
+    while (queue.length) {
+      let node = queue.shift();
+
+      for (const neighbor of this.nodes[node]) {
+        if (!visited.includes(neighbor)) {
+          visited.push(neighbor);
+
+          if (neighbor === target) {
+            const path = [neighbor];
+
+            // backtrack
+            while (node !== source) {
+              path.unshift(node);
+              node = parents[node];
+            }
+
+            path.unshift(node);
+
+            return path.join(' → ');
+          }
+
+          queue.push(neighbor);
+          parents[neighbor] = node;
+        }
+      }
+    }
+
+    return 'No path exists.';
   }
 
   toString() {
