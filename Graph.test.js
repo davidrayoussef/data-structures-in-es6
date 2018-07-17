@@ -129,8 +129,8 @@ describe('Graph', () => {
 
       tree.traverseBFS('grandparent', (node) => (nodes.push(node)));
 
-      const actual = nodes.join(' -> ');
-      const expected = 'grandparent -> parent1 -> parent2 -> child1 -> child2 -> child3 -> child4';
+      const actual = nodes.join(' → ');
+      const expected = 'grandparent → parent1 → parent2 → child1 → child2 → child3 → child4';
 
       assert.equal(actual, expected);
     });
@@ -158,8 +158,8 @@ describe('Graph', () => {
 
       tree.traverseDFS('grandparent', (node) => (nodes.push(node)));
 
-      const actual = nodes.join(' -> ');
-      const expected = 'grandparent -> parent1 -> child1 -> child2 -> parent2 -> child3 -> child4';
+      const actual = nodes.join(' → ');
+      const expected = 'grandparent → parent1 → child1 → child2 → parent2 → child3 → child4';
 
       assert.equal(actual, expected);
     });
@@ -189,6 +189,52 @@ describe('Graph', () => {
       cities.addEdge('NYC', 'Boston');
 
       expect( cities.pathExists('NYC', 'Honolulu') ).to.be.false;
+    });
+  });
+
+  describe('shortestPath methods', () => {
+    let graph;
+
+    beforeEach(() => {
+      graph = new Graph();
+
+      graph.addNode('A');
+      graph.addNode('B');
+      graph.addNode('C');
+      graph.addNode('D');
+      graph.addNode('E');
+      graph.addNode('F');
+      graph.addNode('G');
+      graph.addEdge('A', 'B');
+      graph.addEdge('A', 'C');
+      graph.addEdge('B', 'C');
+      graph.addEdge('B', 'D');
+      graph.addEdge('C', 'E');
+      graph.addEdge('E', 'D');
+      graph.addEdge('D', 'F');
+    });
+
+    describe('shortestPath', () => {
+      it('should return the shortest path between two nodes', () => {
+        const actual = graph.shortestPath('A', 'F');
+        const expected = 'A → B → D → F';
+
+        assert.equal(actual, expected);
+      });
+
+      it('should return "No path exists." if no path exists.', () => {
+        const actual = graph.shortestPath('B', 'G');
+        const expected = 'No path exists.';
+
+        assert.equal(actual, expected);
+      });
+
+      it('should return the source, if source and target are the same', () => {
+        const actual = graph.shortestPath('A', 'A');
+        const expected = 'A';
+
+        assert.equal(actual, expected);
+      });
     });
   });
 });
