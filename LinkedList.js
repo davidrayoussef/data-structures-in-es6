@@ -366,6 +366,17 @@ function appendList(listA, listB) {
   return listA;
 }
 
+function reverse(head) {
+  let node = null;
+
+  while (head) {
+    node = new Node(head.data, node);
+    head = head.next;
+  }
+
+  return node;
+}
+
 function reverseList(head) {
   let current = head;
   let prev = null;
