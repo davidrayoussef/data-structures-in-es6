@@ -377,21 +377,22 @@ function reverse(head) {
   return node;
 }
 
-function reverseList(head) {
+function reverseInPlace(head) {
   let current = head;
   let prev = null;
   let next = null;
 
   while (current) {
+    // save current.next before breaking link
     next = current.next;
+    // point current.next to prev
     current.next = prev;
+    // increment current and next
     prev = current;
     current = next;
   }
 
   head = prev;
-
-  return head;
 }
 
 function isPalindrome(head) {
