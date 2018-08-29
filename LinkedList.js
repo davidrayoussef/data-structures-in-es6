@@ -553,4 +553,4 @@ function reduce(head, fn, init) {
 
 export default LinkedList;
 
-export { Node };
+export { Node, hasCycle };

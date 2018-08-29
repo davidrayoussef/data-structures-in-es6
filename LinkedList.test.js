@@ -1,4 +1,4 @@
-import LinkedList, { Node } from './LinkedList';
+import LinkedList, { Node, hasCycle } from './LinkedList';
 import { expect, assert } from 'chai';
 
 describe('LinkedList', () => {
@@ -283,5 +283,24 @@ describe('LinkedList', () => {
 
       expect( () => linkedList.map(notAFunction) ).to.throw();
     });
+  });
+
+  describe('hasCycle', () => {
+    it('should return true when list contains a cycle/loop', () => {
+      const nums = new LinkedList();
+      nums.append(1);
+      nums.append(2);
+      nums.append(3);
+      nums.head.next.next.next = nums.head;
+ 
+      expect( hasCycle(nums.head) ).to.be.true;
+    });
+  });
+
+  it('should return false when list does not contain cycle', () => {
+    const nums = new LinkedList();
+    nums.append(1);
+
+    expect( hasCycle(nums.head) ).to.be.false;
   });
 });
