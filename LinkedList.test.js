@@ -1,4 +1,5 @@
-import LinkedList, { Node, hasCycle } from './LinkedList';
+import LinkedList from './LinkedList';
+import { hasCycle, reverse, reverseInPlace } from './LinkedList';
 import { expect, assert } from 'chai';
 
 describe('LinkedList', () => {
@@ -295,12 +296,42 @@ describe('LinkedList', () => {
  
       expect( hasCycle(nums.head) ).to.be.true;
     });
+
+    it('should return false when list does not contain cycle', () => {
+      const nums = new LinkedList();
+      nums.append(1);
+  
+      expect( hasCycle(nums.head) ).to.be.false;
+    });
   });
 
-  it('should return false when list does not contain cycle', () => {
-    const nums = new LinkedList();
-    nums.append(1);
+  describe('reverse', () => {
+    it('should return a new reversed list', () => {
+      const nums = new LinkedList();
+      nums.append(1);
+      nums.append(2);
+      nums.append(3);
 
-    expect( hasCycle(nums.head) ).to.be.false;
+      const reversed = reverse(nums.head);
+
+      const actual = JSON.stringify(reversed);
+      const expected = '{"data":3,"next":{"data":2,"next":{"data":1,"next":null}}}';
+
+      assert.equal(actual, expected);
+    });
+
+    it('should not mutate original list', () => {
+      const nums = new LinkedList();
+      nums.append(1);
+      nums.append(2);
+      nums.append(3);
+
+      reverse(nums.head);
+
+      const actual = JSON.stringify(nums);
+      const expected = '{"head":{"data":1,"next":{"data":2,"next":{"data":3,"next":null}}}}';
+
+      assert.equal(actual, expected);
+    });
   });
 });

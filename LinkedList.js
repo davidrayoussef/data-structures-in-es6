@@ -565,4 +565,4 @@ function reduce(head, fn, init) {
 
 export default LinkedList;
 
-export { Node, hasCycle };
+export { Node, hasCycle, reverse, reverseInPlace };
