@@ -224,6 +224,24 @@ class LinkedList {
 
     return newList;
   }
+
+  reverseInPlace() {
+    let current = this.head;
+    let prev = null;
+    let next = null;
+  
+    while (current) {
+      // save current.next before breaking link
+      next = current.next;
+      // point current.next to prev
+      current.next = prev;
+      // increment current and next
+      prev = current;
+      current = next;
+    }
+  
+    this.head = prev;
+  }
 }
 
 function length(head) {
@@ -375,24 +393,6 @@ function reverse(head) {
   }
 
   return node;
-}
-
-function reverseInPlace(head) {
-  let current = head;
-  let prev = null;
-  let next = null;
-
-  while (current) {
-    // save current.next before breaking link
-    next = current.next;
-    // point current.next to prev
-    current.next = prev;
-    // increment current and next
-    prev = current;
-    current = next;
-  }
-
-  head = prev;
 }
 
 function isPalindrome(head) {
@@ -565,4 +565,4 @@ function reduce(head, fn, init) {
 
 export default LinkedList;
 
-export { Node, hasCycle, reverse, reverseInPlace };
+export { Node, hasCycle, reverse };
