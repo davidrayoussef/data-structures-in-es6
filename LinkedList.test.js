@@ -1,5 +1,5 @@
 import LinkedList from './LinkedList';
-import { hasCycle, reverse, reverseInPlace } from './LinkedList';
+import { hasCycle, reverse } from './LinkedList';
 import { expect, assert } from 'chai';
 
 describe('LinkedList', () => {
@@ -286,6 +286,22 @@ describe('LinkedList', () => {
     });
   });
 
+  describe('reverseInPlace', () => {
+    it('should reverse a list in place', () => {
+      const nums = new LinkedList();
+      nums.append(1);
+      nums.append(2);
+      nums.append(3);
+
+      nums.reverseInPlace();
+
+      const actual = JSON.stringify(nums);
+      const expected = '{"head":{"data":3,"next":{"data":2,"next":{"data":1,"next":null}}}}';
+
+      assert.equal(actual, expected); 
+    });
+  });
+
   describe('hasCycle', () => {
     it('should return true when list contains a cycle/loop', () => {
       const nums = new LinkedList();
@@ -320,7 +336,7 @@ describe('LinkedList', () => {
       assert.equal(actual, expected);
     });
 
-    it('should not mutate original list', () => {
+    it('should NOT mutate original list', () => {
       const nums = new LinkedList();
       nums.append(1);
       nums.append(2);
