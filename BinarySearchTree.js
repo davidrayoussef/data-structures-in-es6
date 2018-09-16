@@ -21,29 +21,22 @@ class BinarySearchTree {
       return;
     }
 
-    let current = this.root;
-    let parent;
-
-    while (true) {
-      parent = current;
-
-      if (val < current.val) {
-        current = current.left;
-
-        if (!current) {
-          parent.left = newNode;
-          break;
-        }
-      }
-      else {
-        current = current.right;
-
-        if (!current) {
-          parent.right = newNode;
-          break;
-        }
+    function recurse(node) {
+      if (val < node.val && !node.left) {
+        node.left = newNode;
+      } 
+      else if (val < node.val) {
+        recurse(node.left);
+      } 
+      else if (val > node.val && !node.right) {
+        node.right = newNode;
+      } 
+      else if (val > node.val) {
+        recurse(node.right);
       }
     }
+
+    recurse(this.root);
   }
 
   inOrder(node, fn) {
