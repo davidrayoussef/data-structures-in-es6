@@ -21,6 +21,9 @@
     "url": "https://github.com/davidrayoussef/data-structures-in-es6/issues"
   },
   "homepage": "https://github.com/davidrayoussef/data-structures-in-es6#readme",
+  "dependencies": {
+    "crypto-js": "^4.0.0"
+  },
   "devDependencies": {
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.24.1",
