@@ -1,10 +1,9 @@
 import BinarySearchTree from './BinarySearchTree';
-import { expect, assert } from 'chai';
 
 describe('BinarySearchTree', () => {
   describe('constructor', () => {
     it('should return an instance of a Binary Search Tree', () => {
-      expect(new BinarySearchTree()).to.be.an.instanceof(BinarySearchTree);
+      expect(new BinarySearchTree()).toBeInstanceOf(BinarySearchTree);
     });
   });
 
@@ -15,21 +14,18 @@ describe('BinarySearchTree', () => {
       nums.insert(7);
       nums.insert(3);
       nums.insert(11);
-
       const actual = JSON.stringify(nums);
-      const expected = '{"root":{"val":7,"left":{"val":3,"left":null,"right":null},"right":{"val":11,"left":null,"right":null}}}';
-
-      assert.equal(actual, expected);
+      const expected =
+        '{"root":{"val":7,"left":{"val":3,"left":null,"right":null},"right":{"val":11,"left":null,"right":null}}}';
+      expect(actual).toEqual(expected);
     });
   });
 
   let nums;
   let result;
-
   beforeEach(() => {
     nums = new BinarySearchTree();
     result = [];
-
     nums.insert(7);
     nums.insert(3);
     nums.insert(11);
@@ -49,40 +45,34 @@ describe('BinarySearchTree', () => {
 
   describe('inOrder', () => {
     it('should traverse nodes in-order', () => {
-      nums.inOrder(nums.root, (v) => {
-       result.push(v);
+      nums.inOrder(nums.root, v => {
+        result.push(v);
       });
-
       const actual = result.toString();
       const expected = '0,1,2,3,4,5,6,7,8,9,10,11,12,13,14';
-
-      assert.equal(actual, expected);
+      expect(actual).toEqual(expected);
     });
   });
 
   describe('preOrder', () => {
     it('should traverse nodes pre-order', () => {
-      nums.preOrder(nums.root, (v) => {
-       result.push(v);
+      nums.preOrder(nums.root, v => {
+        result.push(v);
       });
-
       const actual = result.toString();
       const expected = '7,3,1,0,2,5,4,6,11,9,8,10,13,12,14';
-
-      assert.equal(actual, expected);
+      expect(actual).toEqual(expected);
     });
   });
 
   describe('postOrder', () => {
     it('should traverse nodes post-order', () => {
-      nums.postOrder(nums.root, (v) => {
-       result.push(v);
+      nums.postOrder(nums.root, v => {
+        result.push(v);
       });
-
       const actual = result.toString();
       const expected = '0,2,1,4,6,5,3,8,10,9,12,14,13,11,7';
-
-      assert.equal(actual, expected);
+      expect(actual).toEqual(expected);
     });
   });
 
@@ -90,8 +80,7 @@ describe('BinarySearchTree', () => {
     it('should return the minimum value', () => {
       const actual = nums.getMin();
       const expected = 0;
-
-      assert.equal(actual, expected);
+      expect(actual).toEqual(expected);
     });
   });
 
@@ -99,36 +88,32 @@ describe('BinarySearchTree', () => {
     it('should return the maximum value', () => {
       const actual = nums.getMax();
       const expected = 14;
-
-      assert.equal(actual, expected);
+      expect(actual).toEqual(expected);
     });
   });
 
   describe('find', () => {
     it('should return node containing the passed in value', () => {
       const node = nums.find(4);
-
       const actual = JSON.stringify(node);
       const expected = '{"val":4,"left":null,"right":null}';
-
-      assert.equal(actual, expected);
+      expect(actual).toEqual(expected);
     });
 
     it('should return null if value was not found', () => {
       const actual = nums.find(100);
       const expected = null;
-
-      assert.strictEqual(actual, expected);
+      expect(actual).toEqual(expected);
     });
   });
 
   describe('contains', () => {
     it('should return true if value is found', () => {
-      expect( nums.contains(7) ).to.be.true;
+      expect(nums.contains(7)).toBe(true);
     });
 
     it('should return false if value is not found', () => {
-      expect( nums.contains(-1) ).to.be.false;
+      expect(nums.contains(-1)).toBe(false);
     });
   });
 });
